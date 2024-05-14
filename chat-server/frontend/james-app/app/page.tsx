@@ -10,7 +10,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Link from "next/link";
 type Inputs = {
   question: string
   exampleRequired?: string
@@ -23,7 +22,7 @@ export default function Home() {
     watch,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = (data: any) => {
     console.log('입력된 값 : ' + JSON.stringify(data))
     fetch('http://localhost:8000/api/chat/titanic', {
         method: "POST",

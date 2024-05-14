@@ -23,7 +23,7 @@ async def titanic(req:Request):
     print(data)
     f.close()
 
-    service.process()
+    # service.process()
 
     print(req)
     return Response(answer = "생존자는 100명이야")
