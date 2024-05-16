@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+import pandas as pd
+
 @dataclass
 class DataSets:
     _fname: str = ''    # file name
@@ -29,13 +31,13 @@ class DataSets:
     def sname(self, sname): self._sname = sname
    
     @property
-    def train(self) -> object: return self._train
+    def train(self) -> pd.DataFrame: return self._train
    
     @train.setter
     def train(self, train): self._train = train
    
     @property
-    def test(self) -> object: return self._test
+    def test(self) -> pd.DataFrame: return self._test
    
     @test.setter
     def test(self, test): self._test = test

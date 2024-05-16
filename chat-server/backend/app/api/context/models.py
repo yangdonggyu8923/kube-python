@@ -6,10 +6,13 @@ class Models:
     def __init__(self) -> None:
         self.ds = DataSets()
         this = self.ds
-        this.dname = './data'
-        this.sname = './save'
+        # this.dname = 'C:\\Users\\bitcamp\\python-kube\\chat-server\\backend\\app\\api\\titanic\\data\\'
+        # this.sname = 'C:\\Users\\bitcamp\\python-kube\\chat-server\\backend\\app\\api\\titanic\\save\\'
+        this.dname = './app/api/context/data/'
+        this.sname = './app/api/context/save/'
+        
 
-    def new_model(self, fname) -> object:
+    def new_dataframe_with_index(self, fname: pd.DataFrame) -> pd.DataFrame:
         this = self.ds
         # index_col=0 해야 기존 index 값이 유지된다
         # 0은 column명 중에서 첫 번째를 의미한다 (배열구조)
@@ -17,12 +20,12 @@ class Models:
 
         return pd.read_csv(f'{this.dname}{fname}', index_col=0)
     
-    def new_dframe(self, fname) -> object:
+    def new_dataframe_no_index(self, fname: str) -> pd.DataFrame:
         this =self.ds
         # pd.read_csv('경로/파일명.csv') Index 를 지정하지 않음
-        return pd.DataFrame(f'{this.dname}{fname}')
+        return pd.read_csv(f'{this.dname}{fname}')
 
-    def save_model(self, fname, dframe) -> object:
+    def save_model(self, fname, dframe: pd.DataFrame) -> pd.DataFrame:
         this = self.ds
         '''
         풀옵션은 다음과 같다                                 csv = comma-separated values는 몇 가지 필드를 쉼표(,)로 구분한 텍스트 데이터 및 텍스트 파일
