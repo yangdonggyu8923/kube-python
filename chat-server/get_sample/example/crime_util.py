@@ -1,36 +1,47 @@
 import json
-import os
-from dotenv import load_dotenv
 import pandas as pd
-from example.crime_abstract import PrinterBase, ScraperBase
+from example.crime_abstract import EditorBase, PrinterBase, ReaderBase, ScraperBase
 import googlemaps
 from selenium import webdriver
 from icecream import ic
 
+class Editor(EditorBase):
+
+    def dropna(self, this: pd.DataFrame) -> pd.DataFrame:
+        this = this.dropna()
+        return this
+
+
 class Printer(PrinterBase):
 
-    def dframe(self, this: pd.DataFrame) -> None:
-        print('*'*100)
-        ic(f'타입 : {type(this)}')
-        ic(f'컬럼 : {this.columns}')
-        ic(f'상위 1개행 : {this.head(1)}')
-        ic(f'null 갯수: {this.isnull().sum()} 개')
-        print('*'*100)
-    
+    def __init__(self, this:pd.DataFrame) -> None:
+        print('-'*100)
+        print(f'타입: {type(this)}')
+        ic(f'컬럼: {this.columns}')
+        ic(f'상위 1개행: {this.head(1)}')
+        ic(f'null 갯수: {this.isnull().sum()}')
+        print('-'*100)
+        
 
-class Reader():
-    
-    def __init__(self) -> None:
+
+class Reader(ReaderBase):
+
+    def __init__(self) -> pd.DataFrame:
         pass
 
-    def csv(self, file) -> object:
-        return pd.read_csv(f'{file}', encoding='UTF-8', thousands=',')
+    def csv(self, file) ->  pd.DataFrame:
+        return pd.read_csv(f'{file}.csv', encoding='UTF-8', thousands=',')
     
-    def xls(self, file, header, usecols) -> object:
-        return pd.read_csv(f'{file}', header=header, usecols=usecols)
+    def excel(self, file, header, usecols) ->  pd.DataFrame:
+        return pd.read_excel(f'{file}.xls', header=header, usecols=usecols)
     
-    def gmaps(self, api_key: str):
+    def json(self, file) ->  pd.DataFrame:
+        return json.load(open(f'{file}.json', encoding='UTF-8'))
+    
+    def gmaps(self, api_key: str) ->  pd.DataFrame:
         return googlemaps.Client(key=api_key)
+
+    
 
 class Scraper(ScraperBase):
 
